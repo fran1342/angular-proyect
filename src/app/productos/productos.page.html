@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Productos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+     <ion-col>
+       <ion-card>
+         <ion-card-header>
+           Registro de productos
+         </ion-card-header>
+         <ion-card-content>
+           <form [formGroup]="registroForm" (ngSubmit)="registrar()">
+             <ion-item>
+               <ion-label position="floating">Nombre(s):</ion-label>
+               <ion-input type="text" [(ngModel)]="registro.pNombre" formControlName="nombre"></ion-input>
+             </ion-item>
+             <ion-item lines="none">
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes.nombre">
+                  <div class="error-message ion-text-end" *ngIf="registroForm.get('nombre').hasError(validation.type) && (registroForm.get('nombre').dirty || registroForm.get('nombre').touched)">
+                    {{ validation.mensaje }}
+                  </div>
+                </ng-container>
+              </div>
+             </ion-item>
+             <ion-item>
+              <ion-label position="floating">Codigo de barras:</ion-label>
+              <ion-input type="text" [(ngModel)]="registro.pCodigoB" formControlName="codigo"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes.codigo">
+                  <div class="error-message ion-text-end" *ngIf="registroForm.get('codigo').hasError(validation.type) && (registroForm.get('codigo').dirty || registroForm.get('codigo').touched)">
+                    {{ validation.mensaje }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Descripcion:</ion-label>
+              <ion-input formControlName="descripcion" [(ngModel)]="registro.pDescripcion"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes.descripcion">
+                  <div class="error-message ion-text-end" *ngIf="registroForm.get('descripcion').hasError(validation.type) && (registroForm.get('descripcion').dirty || registroForm.get('descripcion').touched)">
+                    {{ validation.mensaje }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Cantidad:</ion-label>
+              <ion-input formControlName="cantidad" [(ngModel)]="registro.pCantidad"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes.cantidad">
+                  <div class="error-message ion-text-end" *ngIf="registroForm.get('cantidad').hasError(validation.type) && (registroForm.get('cantidad').dirty || registroForm.get('cantidad').touched)">
+                    {{ validation.mensaje }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Precio:</ion-label>
+              <ion-input formControlName="precio" [(ngModel)]="registro.pPrecio"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes.precio">
+                  <div class="error-message ion-text-end" *ngIf="registroForm.get('precio').hasError(validation.type) && (registroForm.get('precio').dirty || registroForm.get('precio').touched)">
+                    {{ validation.mensaje }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-item>
+            <ion-item>
+              <ion-button color="success" (click)="tomar_foto();">Agregar foto</ion-button>
+            </ion-item>
+            <ion-img [src]="previo_img" *ngIf="previo_img"></ion-img>
+            <br>
+            <ion-item>
+              <ion-button color="danger"  expand="block" fill="outline" type="submit">Registrar</ion-button>
+            </ion-item>
+           </form>
+         </ion-card-content>
+       </ion-card>
+     </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

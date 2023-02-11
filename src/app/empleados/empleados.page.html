@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Empleados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+     <ion-col>
+       <ion-card>
+         <ion-card-header>
+           Registro de empleados
+         </ion-card-header>
+         <ion-card-content>
+           <form [formGroup]="registroForm" (ngSubmit)="registrar()">
+             <ion-item>
+               <ion-label position="floating">Nombre(s):</ion-label>
+               <ion-input type="text" [(ngModel)]="registro.pNombre" formControlName="nombre"></ion-input>
+             </ion-item>
+             <ion-item lines="none">
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes.nombre">
+                  <div class="error-message ion-text-end" *ngIf="registroForm.get('nombre').hasError(validation.type) && (registroForm.get('nombre').dirty || registroForm.get('nombre').touched)">
+                    {{ validation.mensaje }}
+                  </div>
+                </ng-container>
+              </div>
+             </ion-item>
+             <ion-item>
+              <ion-label position="floating">Apellido(s):</ion-label>
+              <ion-input type="text" [(ngModel)]="registro.pApellidos" formControlName="apellidos"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes.apellidos">
+                  <div class="error-message ion-text-end" *ngIf="registroForm.get('apellidos').hasError(validation.type) && (registroForm.get('apellidos').dirty || registroForm.get('apellidos').touched)">
+                    {{ validation.mensaje }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-item>
+            <ion-item>
+              <ion-label>Puesto:</ion-label>
+              <ion-select formControlName="puesto" [(ngModel)]="registro.pPuesto" aria-placeholder="Selecciona una opcion">
+                <ion-select-option value="Tecnico">Tecnico</ion-select-option>
+                <ion-select-option value="Coordinador">Coordinador</ion-select-option>
+                <ion-select-option value="Gerente">Gerente</ion-select-option>
+                <ion-select-option value="Director">Director</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes.puesto">
+                  <div class="error-message ion-text-end" *ngIf="registroForm.get('puesto').hasError(validation.type) && (registroForm.get('puesto').dirty || registroForm.get('puesto').touched)">
+                    {{ validation.mensaje }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Sueldo:</ion-label>
+              <ion-input formControlName="sueldo" [(ngModel)]="registro.pSueldo"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes.sueldo">
+                  <div class="error-message ion-text-end" *ngIf="registroForm.get('sueldo').hasError(validation.type) && (registroForm.get('sueldo').dirty || registroForm.get('sueldo').touched)">
+                    {{ validation.mensaje }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-item>
+            <ion-item>
+              <ion-button color="success" (click)="tomar_foto();">Agregar foto</ion-button>
+            </ion-item>
+            <ion-img [src]="previo_img" *ngIf="previo_img"></ion-img>
+            <br>
+            <ion-item>
+              <ion-button color="danger"  expand="block" fill="outline" type="submit">Registrar</ion-button>
+            </ion-item>
+           </form>
+         </ion-card-content>
+       </ion-card>
+     </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let empleado of mis_empleados">
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <h4>{{empleado.empleado_nombre}} {{empleado.empleado_apellidos}}</h4>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-img>{{empleado.empleado_foto}}</ion-img>
+            <ion-label>{{empleado.empleado_puesto}}</ion-label>
+            <ion-label>{{empleado.empleado_sueldo}}</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
